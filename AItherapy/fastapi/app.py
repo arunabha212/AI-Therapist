@@ -6,6 +6,7 @@ import numpy as np
 import pickle
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
 # 2. Create the app object
 app = FastAPI()
 pickle_in = open("classifier.pkl","rb")
@@ -27,6 +28,7 @@ def get_name(name: str):
 @app.post('/predict')
 def predict_health(data:mentalhealth):
     data = data.dict()
+    # print(data)
     Q1A=data['Q1A']
     Q2A=data['Q2A']
     Q3A=data['Q3A']
@@ -87,22 +89,31 @@ def predict_health(data:mentalhealth):
     race=data['race']
     married=data['married']
     familysize=data['familysize']
-   # print(classifier.predict([[variance,skewness,curtosis,entropy]]))
+   #print(classifier.predict([[variance,skewness,curtosis,entropy]]))
+    d = pd.read_csv('preprocessed.csv')
+    g = pd.read_csv('target.csv')
+    d=d.drop('Unnamed: 0',axis=1)
+    x_train, x_test, y_train, y_test = train_test_split(d, g.target, test_size=.2)
     scaler = MinMaxScaler()
-    prediction = classifier.predict(scaler.transform([[Q1A, Q2A, Q3A, Q4A, Q5A, Q6A, Q7A, Q8A, Q9A, Q10A,
+    x_train_scaled = scaler.fit_transform(x_train)
+    
+    t=[Q1A, Q2A, Q3A, Q4A, Q5A, Q6A, Q7A, Q8A, Q9A, Q10A,
        Q11A, Q12A, Q13A, Q14A, Q15A, Q16A, Q17A, Q18A, Q19A,
        Q20A, Q21A, Q22A, Q23A, Q24A, Q25A, Q26A, Q27A, Q28A,
        Q29A, Q30A, Q31A, Q32A, Q33A, Q34A, Q35A, Q36A, Q37A,
        Q38A, Q39A, Q40A, Q41A, Q42A, TIPI1, TIPI2, TIPI3,
        TIPI4, TIPI5, TIPI6, TIPI7, TIPI8, TIPI9, TIPI10,
        education, urban, gender, age, religion, race, married,
-       familysize]]))
+       familysize]
+    x_test_scaled = scaler.transform([t])
+    prediction = classifier.predict(x_test_scaled)
+    # print(prediction[0])
     # if(prediction[0]>0.5):
     #     prediction="Fake note"
     # else:
     #     prediction="Its a Bank note"
     return {
-        'prediction': prediction
+        'prediction': prediction[0]
     }
 
 # 5. Run the API with uvicorn
