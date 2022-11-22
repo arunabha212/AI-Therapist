@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="style.css" rel="stylesheet">
+    <!-- <script src="server.js"></script> -->
+    
+    <title>AI Therapist Registration</title>
+
+</head>
+
+<body id="test">
+    <div class="landing-page">
+        <div class="container">
+            <div class="header-area">
+                <div class="logo">AI <b>Therapist</b></div>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="/register">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="image-login">
+            <img src="https://www.nami.org/NAMI/media/NAMI-Media/BlogImageArchive/2020/MIAW-anxiety-blog.jpg">
+        </div>
+        <div class="regcontainer">
+            <div id="content">
+                <h1>Welcome!</h1>
+                <form action="" id="login">
+                    <div class="input-bar">
+                        <label for="name">Email</label>
+                        <input type="text" id="email" class="input">
+                        <box-icon name='user'></box-icon>
+                    </div>
+                    <div class="input-bar">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="input">
+                        <box-icon name='lock-alt'></box-icon>
+                    </div>
+                    <button type="submit" id="btn">Login</button>
+                </form>
+
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script>
+            
+            const input = document.querySelectorAll('.input');
+
+            function inputFocus() {
+                this.parentNode.classList.add('focus');
+            }
+
+            function inputBlur() {
+                if (this.value == '' || this.value === null) {
+                    this.parentNode.classList.remove('focus');
+                }
+            }
+
+            input.forEach((e) => {
+                e.addEventListener('focus', inputFocus);
+                e.addEventListener('blur', inputBlur);
+            })
+            const form = document.getElementById('login')
+            form.addEventListener('submit', login)
+
+            async function login(event) {
+                event.preventDefault()
+                const email = document.getElementById('email').value
+                const password = document.getElementById('password').value
+
+                const result = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password
+                    })
+                }).then((res) => res.json())
+
+                if (result.status === 'ok') {
+                    // everything went fine
+                    // console.log('Got the token: ', result.data)
+                    localStorage.setItem('token', result.data)
+                    alert('Success')
+                    //redirection to the start page
+                    const token = localStorage.getItem('token')
+                    const val = await fetch('/tokenIsValid', {
+                        method: 'POST',
+                        headers: {
+                            "x-auth-token": token
+                        }
+                    }).then((res) => res.json())
+                    if (val.status === 'true') {
+
+                        // window.location.href = '/start'
+                        // await fetch('/start', {
+                        //     method: 'GET',
+                        //     headers: {
+                        //         "x-auth-token": token
+                        //     }
+                        // })
+                        
+                        
+                        const a=await axios.get("http://localhost:9999/start", { headers: { "x-auth-token": token } }).then();
+                        // console.log(a)
+                        document.getElementById("test").innerHTML=a.data
+                    }
+                    else {
+                        console.log('error')
+                    }
+                } else {
+                    alert(result.error)
+                }
+            }
+        </script>
+        
+</body>
+
+</html>

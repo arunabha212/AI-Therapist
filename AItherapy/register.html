@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="style.css" rel="stylesheet">
+    <!-- <script src="server.js"></script> -->
+    <title>AI Therapist Registration</title>
+
+</head>
+
+<body>
+    <div class="landing-page">
+        <div class="container">
+            <div class="header-area">
+                <div class="logo">AI <b>Therapist</b></div>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="/register">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="image-reg">
+            <img src="https://media.istockphoto.com/id/1294477039/vector/metaphor-bipolar-disorder-mind-mental-double-face-split-personality-concept-mood-disorder-2.jpg?s=612x612&w=0&k=20&c=JtBxyFapXIA63hzZk_F5WNDF92J8fD2gIFNX3Ta4U3A=">
+          </div>
+        <div class="regcontainer">
+            <div id="content">
+                <h1>Welcome!</h1>
+                <form action=""  id="reg-form">
+                    <div class="input-bar">
+                        <label for="name">Email</label>
+                        <input type="text" id="email" class="input">
+                        <box-icon name='user'></box-icon>
+                    </div>
+                    <div class="input-bar">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="input">
+                        <box-icon name='lock-alt'></box-icon>
+                    </div>
+                    <div class="input-bar">
+                        <label for="password">Re-password</label>
+                        <input type="password" id="passwordchk" class="input">
+                        <box-icon name='lock-alt'></box-icon>
+                    </div>
+                    <button type="submit" id="btn">Register</button>
+                </form>
+                
+            </div>
+        </div>
+        <script>
+            const input = document.querySelectorAll('.input');
+
+            function inputFocus() {
+                this.parentNode.classList.add('focus');
+            }
+
+            function inputBlur() {
+                if (this.value == '' || this.value === null) {
+                    this.parentNode.classList.remove('focus');
+                }
+            }
+
+            input.forEach((e) => {
+                e.addEventListener('focus', inputFocus);
+                e.addEventListener('blur', inputBlur);
+            })
+			const form = document.getElementById('reg-form')
+			form.addEventListener('submit', registerUser)
+
+			async function registerUser(event) {
+                
+				event.preventDefault()
+				const email = document.getElementById('email').value
+				const epassword = document.getElementById('password').value
+                const passwordchk = document.getElementById('passwordchk').value
+                // alert('AA')
+				const result = await fetch('/api/register', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						email,
+						epassword,
+                        passwordchk
+					})
+				}).then((res) => res.json())
+
+				if (result.status === 'ok') {
+					// everythign went fine
+					alert('Success')
+                    //logged in
+				} else {
+					alert(result.error)
+				}
+			}
+		</script>
+</body>
+
+</html>

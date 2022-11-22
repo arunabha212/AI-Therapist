@@ -1,0 +1,63 @@
+from pydantic import BaseModel
+# 2. Class which describes Bank Notes measurements
+class mentalhealth(BaseModel):
+    Q1A: int 
+    Q2A: int
+    Q3A: int 
+    Q4A: int
+    Q5A: int 
+    Q6A: int
+    Q7A: int 
+    Q8A: int
+    Q9A: int 
+    Q10A: int
+    Q11A: int 
+    Q12A: int
+    Q13A: int 
+    Q14A: int
+    Q15A: int 
+    Q16A: int
+    Q17A: int 
+    Q18A: int
+    Q19A: int 
+    Q20A: int
+    Q21A: int 
+    Q22A: int
+    Q23A: int 
+    Q24A: int
+    Q25A: int 
+    Q26A: int
+    Q27A: int 
+    Q28A: int
+    Q29A: int 
+    Q30A: int
+    Q31A: int 
+    Q32A: int
+    Q33A: int 
+    Q34A: int
+    Q35A: int 
+    Q36A: int
+    Q37A: int 
+    Q38A: int
+    Q39A: int 
+    Q40A: int
+    Q41A: int 
+    Q42A: int
+    TIPI1: int
+    TIPI2: int
+    TIPI3: int
+    TIPI4: int
+    TIPI5: int
+    TIPI6: int
+    TIPI7: int
+    TIPI8: int
+    TIPI9: int
+    TIPI10: int
+    education:int
+    urban: int
+    gender: int
+    age: int
+    religion: int
+    race:int
+    married:int
+    familysize: int
