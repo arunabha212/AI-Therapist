@@ -63,11 +63,11 @@ body {
     color: #5d5d5d;
 }
 .landing-page .header-area ul li a:hover {
-    border: 0;
+    border: 5px;
     border-radius: 20px;
-    padding: 1px 1px 1px 1px;
+    padding: 3px 3px 3px 3px;
     color: #FFF;
-    background-color: #da2567;
+    background-color: #890a0a;
 }
 
 .landing-page .info {
@@ -161,6 +161,14 @@ body {
     float: right;
     padding-right: 15%;
 }
+.testcontainer {
+    padding-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-right: 15%;
+}
 #content {
     width: 350px;
     padding: 50px;
@@ -231,3 +239,13 @@ body {
     cursor: pointer;
 }
 
+/* start page */
+.testcontainer button {
+    border: 0;
+    border-radius: 20px;
+    padding: 12px 30px;
+    margin-top: 30px;
+    cursor: pointer;
+    color: #FFF;
+    background-color: #890a0a;
+}
