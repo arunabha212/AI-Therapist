@@ -127,13 +127,15 @@ function getoptions() {
     document.getElementById("chat-bar-bottom").scrollIntoView(true);
     if(flag==true)
     {
-        answers.push(userText)
+        
         if(idx<=41)
         {
+            answers.push(userText)
             askquestions(idx)
+            console.log(answers)
         }
         
-        console.log(answers)
+        
     }
 }
 function dummy()
