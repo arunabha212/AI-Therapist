@@ -1,53 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <link href="style.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
     <!-- <script src="server.js"></script> -->
-    
+    <link href="/chat.css" rel="stylesheet">
+    <link href="/home.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script src="/chat.js"></script>
+    <script src="/responses.js"></script> -->
     <title>AI Therapist Registration</title>
 
 </head>
 
-<body id="test">
-    <div class="landing-page">
-        <div class="container">
-            <div class="header-area">
-                <div class="logo">AI <b>Therapist</b></div>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="/register">Register</a></li>
-                    <li><a href="/login">Login</a></li>
-                </ul>
+<body>
+    <div id="test">
+        <div class="landing-page">
+            <div class="container">
+                <div class="header-area">
+                    <div class="logo">AI <b>Therapist</b></div>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="/register">Register</a></li>
+                        <li><a href="/login">Login</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="image-login">
-            <img src="https://www.nami.org/NAMI/media/NAMI-Media/BlogImageArchive/2020/MIAW-anxiety-blog.jpg">
-        </div>
-        <div class="regcontainer">
-            <div id="content">
-                <h1>Welcome!</h1>
-                <form action="" id="login">
-                    <div class="input-bar">
-                        <label for="name">Email</label>
-                        <input type="text" id="email" class="input">
-                        <box-icon name='user'></box-icon>
-                    </div>
-                    <div class="input-bar">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" class="input">
-                        <box-icon name='lock-alt'></box-icon>
-                    </div>
-                    <button type="submit" id="btn">Login</button>
-                </form>
+            <div class="image-login">
+                <img src="https://www.nami.org/NAMI/media/NAMI-Media/BlogImageArchive/2020/MIAW-anxiety-blog.jpg">
+            </div>
+            <div class="regcontainer">
+                <div id="content">
+                    <h1>Welcome!</h1>
+                    <form action="" id="login">
+                        <div class="input-bar">
+                            <label for="name">Email</label>
+                            <input type="text" id="email" class="input">
+                            <box-icon name='user'></box-icon>
+                        </div>
+                        <div class="input-bar">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" class="input">
+                            <box-icon name='lock-alt'></box-icon>
+                        </div>
+                        <button type="submit" id="btn">Login</button>
+                    </form>
 
+                </div>
             </div>
         </div>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script>
-            
+
             const input = document.querySelectorAll('.input');
 
             function inputFocus() {
@@ -105,11 +113,21 @@
                         //         "x-auth-token": token
                         //     }
                         // })
-                        
-                        
-                        const a=await axios.get("http://localhost:9999/start", { headers: { "x-auth-token": token } }).then();
+
+
+                        const a = await axios.get("http://localhost:9999/start", { headers: { "x-auth-token": token } }).then();
                         // console.log(a)
-                        document.getElementById("test").innerHTML=a.data
+                        document.getElementById("test").innerHTML = a.data
+                        function loadjscssfile(filename) {
+                            var fileref = document.createElement('script')
+                            fileref.setAttribute("type", "text/javascript")
+                            fileref.setAttribute("src", filename)
+                            if (typeof fileref != "undefined")
+                                document.getElementsByTagName("head")[0].appendChild(fileref)
+                        }
+
+                        loadjscssfile("scripts/chat.js")
+                        loadjscssfile("scripts/responses.js")
                     }
                     else {
                         console.log('error')
@@ -119,7 +137,9 @@
                 }
             }
         </script>
-        
+
+    </div>
+
 </body>
 
 </html>

@@ -8,7 +8,8 @@ const jwt = require('jsonwebtoken')
 
 const JWT_SECRET = 'yWbS38U8t9FMQn6uPV'
 
-mongoose.connect('mongodb+srv://test:test@cluster0.ba5xxwq.mongodb.net/?retryWrites=true&w=majority', {
+// mongodb+srv://test:test@cluster0.ba5xxwq.mongodb.net/?retryWrites=true&w=majority
+mongoose.connect('mongodb://localhost:27017/ayu', {
 	// useNewUrlParser: true,
 	useUnifiedTopology: true,
 	// useCreateIndex: true
@@ -51,6 +52,13 @@ app.get('/start',(req,res)=>{
 	}
 	
 })
+app.get('/logout',(req,res)=>{
+	// 
+		// return res.json({ status: 'true' });
+		res.sendFile(path.join(__dirname+'/index.html'));
+		// res.render('/start.html')
+	}
+)
 // app.post('/api/change-password', async (req, res) => {
 // 	const { token, newpassword: plainTextPassword } = req.body
 
