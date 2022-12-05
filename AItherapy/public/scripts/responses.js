@@ -9,8 +9,8 @@ function getBotResponse(input) {
     }
 
     // Simple responses
-    if (input == "hello") {
-        return "Hello there!";
+    if (input == "ok") {
+        return "You're welcome. Take care!";
     } else if (input == "goodbye") {
         return "Talk to you later!";
     } else {
