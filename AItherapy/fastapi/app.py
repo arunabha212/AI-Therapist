@@ -7,8 +7,16 @@ import pickle
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
+from fastapi.middleware.cors import CORSMiddleware
 # 2. Create the app object
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 pickle_in = open("classifier.pkl","rb")
 classifier=pickle.load(pickle_in)
 
@@ -27,68 +35,69 @@ def get_name(name: str):
 #    JSON data and return the predicted Bank Note with the confidence
 @app.post('/predict')
 def predict_health(data:mentalhealth):
+    print(data)
     data = data.dict()
     # print(data)
-    Q1A=data['Q1A']
-    Q2A=data['Q2A']
-    Q3A=data['Q3A']
-    Q4A=data['Q4A']
-    Q5A=data['Q5A']
-    Q6A=data['Q6A']
-    Q7A=data['Q7A']
-    Q8A=data['Q8A']
-    Q9A=data['Q9A']
-    Q10A=data['Q10A']
-    Q11A=data['Q11A']
-    Q12A=data['Q12A']
-    Q13A=data['Q13A']
-    Q14A=data['Q14A']
-    Q15A=data['Q15A']
-    Q16A=data['Q16A']
-    Q17A=data['Q17A']
-    Q18A=data['Q18A']
-    Q19A=data['Q19A']
-    Q20A=data['Q20A']
-    Q21A=data['Q21A']
-    Q22A=data['Q22A']
-    Q23A=data['Q23A']
-    Q24A=data['Q24A']
-    Q25A=data['Q25A']
-    Q26A=data['Q26A']
-    Q27A=data['Q27A']
-    Q28A=data['Q28A']
-    Q29A=data['Q29A']
-    Q30A=data['Q30A']
-    Q31A=data['Q31A']
-    Q32A=data['Q32A']
-    Q33A=data['Q33A']
-    Q34A=data['Q34A']
-    Q35A=data['Q35A']
-    Q36A=data['Q36A']
-    Q37A=data['Q37A']
-    Q38A=data['Q38A']
-    Q39A=data['Q39A']
-    Q40A=data['Q40A']
-    Q41A=data['Q41A']
-    Q42A=data['Q42A']
-    TIPI1=data['TIPI1']
-    TIPI2=data['TIPI2']
-    TIPI3=data['TIPI3']
-    TIPI4=data['TIPI4']
-    TIPI5=data['TIPI5']
-    TIPI6=data['TIPI6']
-    TIPI7=data['TIPI7']
-    TIPI8=data['TIPI8']
-    TIPI9=data['TIPI9']
-    TIPI10=data['TIPI10']
-    education=data['education']
-    urban=data['urban']
-    gender=data['gender']
-    age=data['age']
-    religion=data['religion']
-    race=data['race']
-    married=data['married']
-    familysize=data['familysize']
+    Q1A=int(data['Q1A'])
+    Q2A=int(data['Q2A'])
+    Q3A=int(data['Q3A'])
+    Q4A=int(data['Q4A'])
+    Q5A=int(data['Q5A'])
+    Q6A=int(data['Q6A'])
+    Q7A=int(data['Q7A'])
+    Q8A=int(data['Q8A'])
+    Q9A=int(data['Q9A'])
+    Q10A=int(data['Q10A'])
+    Q11A=int(data['Q11A'])
+    Q12A=int(data['Q12A'])
+    Q13A=int(data['Q13A'])
+    Q14A=int(data['Q14A'])
+    Q15A=int(data['Q15A'])
+    Q16A=int(data['Q16A'])
+    Q17A=int(data['Q17A'])
+    Q18A=int(data['Q18A'])
+    Q19A=int(data['Q19A'])
+    Q20A=int(data['Q20A'])
+    Q21A=int(data['Q21A'])
+    Q22A=int(data['Q22A'])
+    Q23A=int(data['Q23A'])
+    Q24A=int(data['Q24A'])
+    Q25A=int(data['Q25A'])
+    Q26A=int(data['Q26A'])
+    Q27A=int(data['Q27A'])
+    Q28A=int(data['Q28A'])
+    Q29A=int(data['Q29A'])
+    Q30A=int(data['Q30A'])
+    Q31A=int(data['Q31A'])
+    Q32A=int(data['Q32A'])
+    Q33A=int(data['Q33A'])
+    Q34A=int(data['Q34A'])
+    Q35A=int(data['Q35A'])
+    Q36A=int(data['Q36A'])
+    Q37A=int(data['Q37A'])
+    Q38A=int(data['Q38A'])
+    Q39A=int(data['Q39A'])
+    Q40A=int(data['Q40A'])
+    Q41A=int(data['Q41A'])
+    Q42A=int(data['Q42A'])
+    TIPI1=int(data['TIPI1'])
+    TIPI2=int(data['TIPI2'])
+    TIPI3=int(data['TIPI3'])
+    TIPI4=int(data['TIPI4'])
+    TIPI5=int(data['TIPI5'])
+    TIPI6=int(data['TIPI6'])
+    TIPI7=int(data['TIPI7'])
+    TIPI8=int(data['TIPI8'])
+    TIPI9=int(data['TIPI9'])
+    TIPI10=int(data['TIPI10'])
+    education=int(data['education'])
+    urban=int(data['urban'])
+    gender=int(data['gender'])
+    age=int(data['age'])
+    religion=int(data['religion'])
+    race=int(data['race'])
+    married=int(data['married'])
+    familysize=int(data['familysize'])
    #print(classifier.predict([[variance,skewness,curtosis,entropy]]))
     d = pd.read_csv('preprocessed.csv')
     g = pd.read_csv('target.csv')

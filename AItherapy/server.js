@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const User = require('./model/user')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const cors=require('cors');
 
 const JWT_SECRET = 'yWbS38U8t9FMQn6uPV'
 
@@ -22,6 +23,9 @@ function (error) {
 });
 
 const app = express()
+app.use(cors({
+    orgin: "*",
+}))
 app.use(express.static(__dirname+'/public'));
 app.use(bodyParser.json())
 app.get('/',(req,res)=>{

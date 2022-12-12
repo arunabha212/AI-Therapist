@@ -156,11 +156,12 @@ function getoptions() {
             alert(idx)
         }
         else {
+            answers.push(userText)
             alert('end')
             testend();
-            // setTimeout(() => {
-            //     getHardResponse(userText);
-            // }, 1000)
+            setTimeout(() => {
+                callsubmit(answers);;
+            }, 1000)
 
         }
 
@@ -183,7 +184,7 @@ function askquestions(idx, questions) {
 
     // alert(flag)
 }
-questions3 = ['How much education have you completed?<br/>1=Less than high school<br/>2=High school<br/>3=University degree<br/>4=Graduate degree', 'What type of area did you live when you were a child?<br/>1=Rural (country side)<br/>2=Suburban<br/>3=Urban (town, city)', 'What is your gender?<br/>1=Male<br/>2=Female<br/>3=Other', 'How many years old are you?<br/>1= Age<= 12<br/>2=13 <= Age <= 16<br/>3=17 <= Age <= 21<br/>4= 21 < Age <= 35 <br/>5= 35 < Age <= 48 <br/>6= Age >= 49', 'What is your religion?,<br/>1=Agnostic<br/>2=Atheist<br/>3=Buddhist<br/>4=Christian (Catholic)<br/>5=Christian (Mormon)<br/>6=Christian (Protestant)<br/>7=Christian (Other)<br/>8=Hindu<br/>9=Jewish<br/>10=Muslim<br/>11=Sikh<br/>12=Other', 'What is your marital status?<br/>1=Never married<br/>2=Currently married<br/>3=Previously married', 'Including you, how many children did your mother have?']
+questions3 = ['How much education have you completed?<br/>1=Less than high school<br/>2=High school<br/>3=University degree<br/>4=Graduate degree', 'What type of area did you live when you were a child?<br/>1=Rural (country side)<br/>2=Suburban<br/>3=Urban (town, city)', 'What is your gender?<br/>1=Male<br/>2=Female<br/>3=Other', 'How many years old are you?<br/>1= Age<= 12<br/>2=13 <= Age <= 16<br/>3=17 <= Age <= 21<br/>4= 21 < Age <= 35 <br/>5= 35 < Age <= 48 <br/>6= Age >= 49', 'What is your religion?,<br/>1=Agnostic<br/>2=Atheist<br/>3=Buddhist<br/>4=Christian (Catholic)<br/>5=Christian (Mormon)<br/>6=Christian (Protestant)<br/>7=Christian (Other)<br/>8=Hindu<br/>9=Jewish<br/>10=Muslim<br/>11=Sikh<br/>12=Other','"What is your race?"<br/>10=Asian<br/> 20=Arab<br/> 30=Black<br/> 40=Indigenous Australian<br/> 50=Native American<br/> 60=White<br/>70=Other', 'What is your marital status?<br/>1=Never married<br/>2=Currently married<br/>3=Previously married', 'Including you, how many children did your mother have?']
 
 function testend() {
     const str = "Thank you for taking up this test, the AI Therapist will soon update the results "
@@ -191,4 +192,32 @@ function testend() {
     $("#textInput").val("");
     $("#chatbox").append(userHtml);
     document.getElementById("chat-bar-bottom").scrollIntoView(true);
+    
+}
+
+async function callsubmit(answers){
+    // alert(answers)
+    var t=["Q1A", "Q2A", "Q3A", "Q4A", "Q5A", "Q6A", "Q7A", "Q8A", "Q9A", "Q10A",
+        "Q11A", "Q12A", "Q13A", "Q14A", "Q15A", "Q16A", "Q17A", "Q18A", "Q19A",
+        "Q20A", "Q21A", "Q22A", "Q23A", "Q24A", "Q25A", "Q26A", "Q27A", "Q28A",
+        "Q29A", "Q30A", "Q31A", "Q32A", "Q33A", "Q34A", "Q35A", "Q36A", "Q37A",
+        "Q38A", "Q39A", "Q40A", "Q41A", "Q42A", "TIPI1", "TIPI2", "TIPI3",
+        "TIPI4", "TIPI5", "TIPI6", "TIPI7", "TIPI8", "TIPI9", "TIPI10",
+        "education", "urban", "gender","age", "religion", "race", "married",
+        "familysize"]
+    var dict={}
+    for( var i=0; i<answers.length;i++)
+    {
+        dict[t[i]] = answers[i+1];
+    }
+    console.log(JSON.stringify(dict))
+
+    const prediction = await fetch('http://localhost:8000/predict', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dict)
+    }).then((res) => res.json())
+    // alert(prediction)
 }
