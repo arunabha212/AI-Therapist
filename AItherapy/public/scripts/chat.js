@@ -219,5 +219,8 @@ async function callsubmit(answers){
         },
         body: JSON.stringify(dict)
     }).then((res) => res.json())
-    // alert(prediction)
+    alert(JSON.stringify(prediction))
+
+    //Displaying the prediction
+    document.getElementById("myDiv").innerHTML='DASS Scale:'+JSON.stringify(prediction)
 }
